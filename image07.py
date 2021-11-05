@@ -1,9 +1,12 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter.ttk import *
 
 root_window = Tk()
+root_window.title("Виды разметок виджетов PythonRu")
+root_window.geometry('800x600')
 
-estyle = ttk.Style()
+
+estyle = Style()
 estyle.element_create("plain.field", "from", "clam")
 estyle.layout("EntryStyle.TEntry",
                    [('Entry.plain.field', {'children': [(
@@ -14,9 +17,10 @@ estyle.layout("EntryStyle.TEntry",
                       'border':'2', 'sticky': 'nswe'})])
 
 estyle.configure("EntryStyle.TEntry",
-    fieldbackground="light blue")           # Set color here
+                 foreground="dark blue",
+                 fieldbackground="light blue")           # Set color here
 
-entry = ttk.Entry(root_window, style="EntryStyle.TEntry")
+entry = Entry(root_window, style="EntryStyle.TEntry")
 entry.pack(padx=10, pady=10)
 
 root_window.mainloop()
