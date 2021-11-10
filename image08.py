@@ -16,6 +16,9 @@ tablo.title("Графическая часть Python")
 tablo.title("Графическая часть Python")
 tablo.geometry('700x400+100+50')
 
+
+
+
 Txt1="Присоединение1"
 lbl1 = Label(tablo, text=Txt1, font=("Arial Narrow", 14))
 lbl1.grid(column=0, row=0)  
@@ -38,5 +41,8 @@ btn.grid(column=4, row=0)
 
 lbl3 = Label(tablo, text="Объект:", font=("Arial Narrow", 14))  
 lbl3.grid(column=0, row=1)  
+
+
+
 
 tablo.mainloop()
