@@ -21,27 +21,30 @@ tab_control.add(tab4, text='Открыть страницу Google')    # доб
 
 
 def clicked():          # выполняемая функция при нажатии кнопки Next, Всталяет текст из поля Entry  в поле lbl13
-    res = "Объект:  {}".format(txt.get())
-    lbl13.configure(text=res)
+    res = "{}".format(txt.get())
+    res1 = "{}".format(combo.get())
+    lbl14.configure(text=res + '  ' + res1)
 
 
-btn = Button(tab1, text="Next", command=clicked, font=("Arial Narrow", 14), )
-btn.grid(column=4, row=0, sticky=E, padx=10)
+btn = Button(tab1, text="Next", command=clicked, font=("Arial Narrow", 14))
+btn.grid(column=4, row=1, sticky=E, padx=10)
 
 lbl11 = Label(tab1, text="Ввести название ==>", font=("Arial Narrow", 14))
-lbl11.grid(column=0, row=0)
-txt = Entry(tab1, width=20)
-txt.grid(column=1, row=0)
+lbl11.grid(column=0, row=1)
+txt = Entry(tab1, width=20, borderwidth=3)
+txt.grid(column=1, row=1)
 lbl12 = Label(tab1, text="Фаза", font=("Arial Narrow", 14))
-lbl12.grid(column=2, row=0, padx=10)
+lbl12.grid(column=2, row=1, padx=10)
 combo = ttk.Combobox(tab1)  # параменты поля с выпадающим списком,
 # импорт выполнен ttk.Combobox, если взять просто  Combobox
 # то нужно выполнить импорт модуля ttk из пакета Tkinter, вначале <from tkinter.ttk import Combobox>
 combo['values'] = ("A", "B", "C", "Текст")
 combo.current(0)                # установите вариант по умолчанию - номер по порядку
-combo.grid(column=3, row=0, padx=10)
+combo.grid(column=3, row=1, padx=10)
 lbl13 = Label(tab1, text="Объект:", font=("Arial Narrow", 14))
-lbl13.grid(column=0, row=1)
+lbl13.grid(column=0, row=0)
+lbl14 = Label(tab1, text="", font=("Arial Narrow", 14), width=60, borderwidth=3, relief="groove")
+lbl14.grid(column=1, row=0, columnspan=3)
 
 # виджеты вкладки 2
 lbl22 = Label(tab2, text='Вкладка 2')
