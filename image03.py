@@ -6,7 +6,7 @@ tablo = Tk()   # создание окна
 tablo.title("Виды разметок виджетов tkinter")
 tablo.geometry('800x600')
 
-tab_control = ttk.Notebook(tablo)  # класс Notebook, создание элеемента управления вкладкой
+tab_control = ttk.Notebook(tablo, padding=10)  # класс Notebook, создание элеемента управления вкладкой
 
 tab1 = Frame(tab_control)   # класс frame, создание вклажки 1 нет необходимости импорта в виде <ttk.Frame>
 tab2 = Frame(tab_control)   # класс frame, создание вклажки 2
