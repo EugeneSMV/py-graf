@@ -1,22 +1,37 @@
-from tkinter import *
-from tkinter import ttk  # импорт модуля ttk с классами
+import tkinter as tk
+import tkinter.ttk as ttk
 
-tablo = Tk()
-tablo.title("Графическая часть Python")
-tablo.geometry('700x400+100+50')
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Ttk Notebook")
 
-s = ttk.Style()
-s.configure('Bold.TLabel', font=('Helvetica', 12, 'normal'))
-s.configure('Bold.TLabel',  borderwidth=3, relief=GROOVE,
-            background="#ccc", width=17, height=20, padx=5, pady=5, anchor=CENTER)
+        todos = {
+            "Дом": ["Постирать", "Сходить за продуктами"],
+            "Работа": ["Установить Python", "Учить Tkinter", "Разобрать почту"],
+            "Отпуск": ["Отдых!"]
+        }
 
-lbl1 = ttk.Label(tablo, text="Ввести название",  style='Bold.TLabel')
-lbl1.place(relx=0.05, rely=0.1)
-txt = Entry(tablo, width=20, relief=GROOVE,  borderwidth=5)
-txt.place(relx=0.3, rely=0.2)
-lbl2 = ttk.Label(tablo, text="Фаза", style='Bold.TLabel')
-lbl2.place(relx=0.05, rely=0.2)
-lbl3 = ttk.Label(tablo, text="Объект:", style='Bold.TLabel')
-lbl3.place(relx=0.05, rely=0.3)
+        self.notebook = ttk.Notebook(self, width=800, height=600, padding=5)
+        for key, value in todos.items():
+            frame = ttk.Frame(self.notebook)
+            self.notebook.add(frame, text=key, underline=0,
+                              sticky=tk.NE + tk.SW)
+            for text in value:
+                ttk.Label(frame, text=text).pack(anchor=tk.W)
+        self.label = ttk.Label(self)
 
-tablo.mainloop()
+        self.notebook.pack()
+        self.label.pack(anchor=tk.W)
+        self.notebook.enable_traversal()
+        self.notebook.bind("<<NotebookTabChanged>>", self.select_tab)
+
+    def select_tab(self, event):
+        tab_id = self.notebook.select()
+        tab_name = self.notebook.tab(tab_id, "text")
+        text = "Ваш текущий выбор: {}".format(tab_name)
+        self.label.config(text=text)
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()

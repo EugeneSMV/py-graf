@@ -6,7 +6,9 @@ tablo.title("Кабельный журнал")
 tablo.geometry('1000x600')
 
 
-def clicked():          # выполняемая функция при нажатии кнопки Next, Всталяет текст из поля Entry  в поле lbl13
+def clicked():          # выполняемая функция при нажатии кнопки Next,
+    # возвращает значения из виджетов (функция get)
+    # и всталяет значения в поле lbl10
     res0 = "{}".format(num.get())
     res1 = "{}".format(comboT.get())
     res2 = "{}".format(comboC.get())
