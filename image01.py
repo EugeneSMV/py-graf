@@ -10,7 +10,7 @@ t = s.theme_use()
 
 lbl0 = ttk.Label(tablo, text="Используется тема      " + t)
 lbl0.place(relx=0.2, rely=0.05)
-lbl1 = ttk.Label(tablo, text="\n   Ввести\n   название\n", width=15,relief="groove")
+lbl1 = ttk.Label(tablo, text="\n   Ввести\n   название\n", width=15, relief="groove")
 lbl1.place(relx=0.05, rely=0.1)
 txt = Entry(tablo, width=20)
 txt.place(relx=0.3, rely=0.2)
