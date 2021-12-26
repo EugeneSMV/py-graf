@@ -1,3 +1,4 @@
+import pprint
 from tkinter import *
 from tkinter import ttk  # импорт модуля ttk с классами виджетов
 import webbrowser   # для вкладки 4
@@ -11,12 +12,7 @@ s = ttk.Style()  # Создание экземпляра класса ttk.Style 
 t = s.theme_use()  # Вызывает применяемую  по умолчанию тему
 
 
-def check():          # выполняется изменение темы по выбору в radiobutton
-    rb = "{}".format(var.get())
-    s.theme_use(rb)  # Применяет тему по выбору в radiobutton
-    th = s.theme_use()  # Вызывает применяемую тему после изменениния в radiobutton
-    lbl0.configure(text="Используется тема      " + th)
-    lbl1.configure(text="Выбрана тема    " + rb)
+
 
 
 # создание элемента управления вкладками
@@ -35,20 +31,48 @@ tab_control.add(tab4, text='Спрака WIKIVERSITY')    # добавление
 
 # виджеты вкладки 0
 
-var = StringVar()  # Задание класса переменной для var
-                       # BooleanVar, IntVar, DoubleVar, StringVar
+def check():          # выполняется изменение темы по выбору в radiobutton
+    rb = "{}".format(var.get())
+    s.theme_use(rb)  # Применяет тему по выбору в radiobutton
+    th = s.theme_use()  # Вызывает применяемую тему после изменениния в radiobutton
+    lbl0.configure(text="Используется тема      " + th)
+    lbl1.configure(text="Выбрана тема    " + rb)
+
+
+
+
+def callbackfunc(event): #  выполняется изменение виджета по выбору combobox
+    wg1 = event.widget.get()
+    lbl02.configure(text=wg1)
+    lbl03 = Label(tab0, text='ttk.' + wg1 )
+    lbl03.place(relx=0.4, rely=0.5)
+    wg2 = lbl03.cget('text')
+    print(wg2)
+    pprint.pprint(lbl02.config())  #  печатает все доступные параметры lbl02
+
+
+
+var = StringVar()  # Задание класса переменной var для Radiobutton  (BooleanVar, IntVar, DoubleVar, StringVar)
 var.set('default')  # Значение переменной var по умолчанию
+
 rb1 = ttk.Radiobutton(tab0, text='alt', variable=var, value='alt', command=check)
 rb2 = ttk.Radiobutton(tab0, text='default', variable=var, value='default', command=check)
 rb3 = ttk.Radiobutton(tab0, text='clam', variable=var, value='clam', command=check)
 rb4 = ttk.Radiobutton(tab0, text='classic', variable=var, value='classic', command=check)
+
+vc1 = StringVar()  # Задание класса переменной var для combobox
+combo1 = ttk.Combobox(tab0, textvariable = vc1)  # Create Combobox, выбор виджета для отображения кофигурации
+combo1['values'] = ("Button", "Radiobutton", "Checkbutton", "Entry", "Text", "Label", "Scale", "Combobox",
+                    "Scrollbar", "Frame", "LabelFrame", "Listbox", "Canvas", "PanedWindow", "Menu", "Tk", "Toplevel")
+combo1.current(2)
+combo1.bind("<<ComboboxSelected>>", callbackfunc)
+
+
+
 lbl1 = ttk.Label(tab0, text="Выбрана тема    " + var.get())
 lbl0 = ttk.Label(tab0, text="Используется тема      " + t)
 lbl10 = ttk.Label(tab0, text="Конфигурация виджета")
-
-combo1 = ttk.Combobox(tablo)  # выбор виджета для отображения кофигурации
-combo1['values'] = ("Button", "Radiobutton", "Checkbutton", "Entry", "Text", "Label", "Scale",
-                    "Scrollbar", "Frame", "LabelFrame", "Listbox", "Canvas", "PanedWindow", "Menu", "Tk", "Toplevel")
+lbl02 = ttk.Label(tab0, text='Выбрать виджет')
 
 rb1.place(relx=0.05, rely=0.15)
 rb2.place(relx=0.05, rely=0.2)
@@ -57,66 +81,9 @@ rb4.place(relx=0.05, rely=0.3)
 lbl1.place(relx=0.05, rely=0.1)
 lbl0.place(relx=0.05, rely=0.03)
 lbl10.place(relx=0.4, rely=0.03)
+lbl02.place(relx=0.4, rely=0.1)
 combo1.place(relx=0.4, rely=0.15)
 
-# Вызов конфигурации виджета
-def iter_layout(layout, tab_amnt=0, elements=[]):
-    """Recursively prints the layout children."""
-    el_tabs = '  '*tab_amnt
-    val_tabs = '  '*(tab_amnt + 1)
-
-    for element, child in layout:
-        elements.append(element)
-        print(el_tabs+ '\'{}\': {}'.format(element, '{'))
-        for key, value in child.items():
-            if type(value) == str:
-                print(val_tabs + '\'{}\' : \'{}\','.format(key, value))
-            else:
-                print(val_tabs + '\'{}\' : [('.format(key))
-                iter_layout(value, tab_amnt=tab_amnt+3)
-                print(val_tabs + ')]')
-
-        print(el_tabs + '{}{}'.format('} // ', element))
-
-    return elements
-
-def stylename_elements_options(stylename, widget):
-    """Function to expose the options of every element associated to a widget stylename."""
-
-    try:
-        # Get widget elements
-        style = ttk.Style()
-        layout = style.layout(stylename)
-        config = widget.configure()
-
-        print('{:*^50}\n'.format(f'Style = {stylename}'))
-
-        print('{:*^50}'.format('Config'))
-        for key, value in config.items():
-            print('{:<15}{:^10}{}'.format(key, '=>', value))
-
-        print('\n{:*^50}'.format('Layout'))
-        elements = iter_layout(layout)
-
-        # Get options of widget elements
-        print('\n{:*^50}'.format('element options'))
-        for element in elements:
-            print('{0:30} options: {1}'.format(
-                element, style.element_options(element)))
-
-    except tk.TclError:
-        print('_tkinter.TclError: "{0}" in function'
-                'widget_elements_options({0}) is not a regonised stylename.'
-                .format(stylename))
-
-#def ():          # выполняемая функция при нажатии кнопки Next,
-    # возвращает значения из виджетов (функция get)
-    res1 = "{}".format(combo1.get())
-
-wid1 = ttk.Frame  # изменять виджет здесь
-widget = wid1(None)
-class_ = widget.winfo_class()
-stylename_elements_options(class_, widget)
 
 
 
@@ -210,17 +177,18 @@ class WebOpen:
                  "%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B5_Tkinter_" \
                  "%D1%8F%D0%B7%D1%8B%D0%BA%D0%B0_Python#%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5"
         self.B = "https://ru.wikibooks.org/wiki/GUI_Help/Tkinter_book#%D0%9E%D0%B1%D1%89%D0%B8%D0%B9_" \
-             "%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC"
+                 "%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC"
+        self.C = "https://www.etutorialspoint.com/index.php/274-python-tkinter-overview-and-examples"
 
     def open(self):
         webbrowser.open_new(self.A)
         webbrowser.open(self.B)
+        webbrowser.open(self.C)
 
 
 test = WebOpen()
 b1 = Button(tab4, text="Tkinter\nWEB", command=test.open)
 b1.pack()
-
 
 tab_control.pack(expand=1, fill='both')   # запаковывает элемент управления вкладками
 tablo.mainloop()

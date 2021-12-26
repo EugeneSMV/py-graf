@@ -8,7 +8,7 @@ def iter_layout(layout, tab_amnt=0, elements=[]):
 
     for element, child in layout:
         elements.append(element)
-        print(el_tabs+ '\'{}\': {}'.format(element, '{'))
+        print(el_tabs + '\'{}\': {}'.format(element, '{'))
         for key, value in child.items():
             if type(value) == str:
                 print(val_tabs + '\'{}\' : \'{}\','.format(key, value))
