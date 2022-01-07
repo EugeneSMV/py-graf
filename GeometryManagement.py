@@ -1,8 +1,7 @@
-import pprint
 from tkinter import *
 from tkinter import ttk  # импорт модуля ttk с классами виджетов
 import webbrowser   # для вкладки 4
-
+import pprint
 
 tablo = Tk()   # создание окна
 tablo.title("Упаковщики виджетов tkinter")
@@ -39,27 +38,33 @@ def check():          # выполняется изменение темы по 
     lbl1.configure(text="Выбрана тема    " + rb)
 
 
+def tk_print(new_string):  #  печать в окно entr1  из переменной wg2
+    entr1.insert(END, new_string)
 
+def process(self, *args):
+        lbl04['text'] = entr1.get()  # вывод в lbl04 значения из entr1
 
 def callbackfunc(event): #  выполняется изменение виджета по выбору combobox
     wg1 = event.widget.get()
-    lbl02.configure(text=wg1)
-    lbl03 = Label(tab0, text='ttk.' + wg1 )
-    lbl03.place(relx=0.4, rely=0.5)
+    lbl03.configure(text=wg1)
     wg2 = lbl03.cget('text')
-    print(wg2)
-    pprint.pprint(lbl02.config())  #  печатает все доступные параметры lbl02
+    tk_print(wg2)  #  печать в окно entr1  из переменной wg2 иместо print вызывается функция tk_print
+    pprint.pprint(lbl03.config())  #  печатает все доступные параметры lbl02
 
-
-
+  # Radiobutton
 var = StringVar()  # Задание класса переменной var для Radiobutton  (BooleanVar, IntVar, DoubleVar, StringVar)
 var.set('default')  # Значение переменной var по умолчанию
-
 rb1 = ttk.Radiobutton(tab0, text='alt', variable=var, value='alt', command=check)
 rb2 = ttk.Radiobutton(tab0, text='default', variable=var, value='default', command=check)
 rb3 = ttk.Radiobutton(tab0, text='clam', variable=var, value='clam', command=check)
 rb4 = ttk.Radiobutton(tab0, text='classic', variable=var, value='classic', command=check)
 
+  # Entry
+var1 = StringVar()
+entr1 = ttk.Entry(tab0, textvariable=var1)
+var1.trace('w', process)  #  вызов функции вывода текста из entr1 в lbl04
+
+  # Combobox
 vc1 = StringVar()  # Задание класса переменной var для combobox
 combo1 = ttk.Combobox(tab0, textvariable = vc1)  # Create Combobox, выбор виджета для отображения кофигурации
 combo1['values'] = ("Button", "Radiobutton", "Checkbutton", "Entry", "Text", "Label", "Scale", "Combobox",
@@ -68,11 +73,12 @@ combo1.current(2)
 combo1.bind("<<ComboboxSelected>>", callbackfunc)
 
 
-
 lbl1 = ttk.Label(tab0, text="Выбрана тема    " + var.get())
 lbl0 = ttk.Label(tab0, text="Используется тема      " + t)
 lbl10 = ttk.Label(tab0, text="Конфигурация виджета")
-lbl02 = ttk.Label(tab0, text='Выбрать виджет')
+lbl03 = Label(tab0, text='выбор виджета', width=17, borderwidth=2, relief="groove")
+
+lbl04 = ttk.Label(tab0, text='', width=17, borderwidth=2, relief="groove")
 
 rb1.place(relx=0.05, rely=0.15)
 rb2.place(relx=0.05, rely=0.2)
@@ -81,10 +87,10 @@ rb4.place(relx=0.05, rely=0.3)
 lbl1.place(relx=0.05, rely=0.1)
 lbl0.place(relx=0.05, rely=0.03)
 lbl10.place(relx=0.4, rely=0.03)
-lbl02.place(relx=0.4, rely=0.1)
 combo1.place(relx=0.4, rely=0.15)
-
-
+entr1.place(relx=0.4, rely=0.25)
+lbl03.place(relx=0.4, rely=0.1)
+lbl04.place(relx=0.4, rely=0.3)
 
 
 # виджеты вкладки 1
