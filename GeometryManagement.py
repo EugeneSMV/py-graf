@@ -60,9 +60,9 @@ rb3 = ttk.Radiobutton(tab0, text='clam', variable=var, value='clam', command=che
 rb4 = ttk.Radiobutton(tab0, text='classic', variable=var, value='classic', command=check)
 
   # Entry
-var1 = StringVar()
+var1 = ()
 entr1 = ttk.Entry(tab0, textvariable=var1)
-var1.trace('w', process)  #  вызов функции вывода текста из entr1 в lbl04
+  #var1.trace('w', process)  #  вызов функции вывода текста из entr1 в lbl04
 
   # Combobox
 vc1 = StringVar()  # Задание класса переменной var для combobox

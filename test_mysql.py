@@ -21,7 +21,7 @@ with con:
   # вывести названия столбцов с информацией из таблицы базы данных.
     print("Table severovo:")
     cur.execute("SELECT * FROM severovo")
-    rows = cur.fetchall()
+    rows = cur.fetchall()rd
     desc = cur.description
     print("{0:>3} {1:>8} {2:>14} {3:>10} {4:>8}".format(desc[0][0], desc[1][0], desc[2][0], desc[3][0], desc[4][0]))
     for row in rows:
@@ -33,8 +33,8 @@ with con:
     print("Параметры для device =", dev)
     cur.execute("SELECT * FROM severovo WHERE device=%s", dev)
 
-    device, svid, mac_sv, appid, csbinet = cur.fetchone()
-    print(device, svid, mac_sv, appid, csbinet)
+    device, svid, mac_sv, appid, cabinet = cur.fetchone()
+    print(device, svid, mac_sv, appid, cabinet)
 
 
 
