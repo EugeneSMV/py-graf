@@ -75,7 +75,7 @@ combo1.bind("<<ComboboxSelected>>", callbackfunc)
 
 lbl1 = ttk.Label(tab0, text="Выбрана тема    " + var.get())
 lbl0 = ttk.Label(tab0, text="Используется тема      " + t)
-lbl10 = ttk.Label(tab0, text="Конфигурация виджета")
+lbl10 = ttk.Label(tab0, text="Конфигурация виджета", underline=0)  # underline  указывает подчеркнутый символ
 lbl03 = Label(tab0, text='выбор виджета', width=17, borderwidth=2, relief="groove")
 
 lbl04 = ttk.Label(tab0, text='', width=17, borderwidth=2, relief="groove")

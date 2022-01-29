@@ -32,4 +32,5 @@ df.to_sql(name='sevsv', con=engine, if_exists='replace', index=False)
 engine.execute('ALTER TABLE sevsv MODIFY device varchar(15);')  #изменяет тип данных столбца device таблицы sevsv
 engine.execute('ALTER TABLE sevsv ADD PRIMARY KEY (device);')  #устанавливает для столбца device первичный ключ
 
-print(df)
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):  #вместо None можно указать число строк или столбцов
+    print(df)
