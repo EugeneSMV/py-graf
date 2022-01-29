@@ -2,6 +2,11 @@ import pandas as pd
 from sqlalchemy import create_engine
 import csv
 
+pd.set_option("display.max_rows", None)  #вместо None можно указать число строк для print
+pd.set_option("display.max_columns", None) #вместо None можно указать число  столбцов для print
+pd.options.display.width = 0  #pandas автоматически определяет размер окна терминала, без этого парамента
+                               # последние столбцы столбцы переносились при печати
+
 with open('/home/smv/enter/mysql_user.txt', 'r', encoding='utf-8-sig') as fp:  #читать имя из файла
     mysql_usr = fp.read().rstrip()
 with open('/home/smv/enter/mysql_password.txt', 'r', encoding='utf-8-sig') as fp:  #читать пароль из файла
@@ -38,5 +43,4 @@ df.to_sql(name='sevsv', con=engine, if_exists='replace', index=False)
 engine.execute('ALTER TABLE sevsv MODIFY device varchar(15);')  #изменяет тип данных столбца device таблицы sevsv
 engine.execute('ALTER TABLE sevsv ADD PRIMARY KEY (device);')  #устанавливает для столбца device первичный ключ
 
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):  #вместо None можно указать число строк или столбцов
-    print(df)
+print(df)
